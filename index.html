@@ -33,9 +33,11 @@
 .stepnum{flex:none;height:24px;width:24px;border-radius:99px;background:var(--mint);color:#126b4b;display:grid;place-items:center;font-weight:750;font-size:12px}
 @media(max-width:900px){.shell{grid-template-columns:1fr}.side{display:none}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.content{padding:18px}.top{padding:16px 18px}.mobilemenu{display:inline-block}.formgrid{grid-template-columns:1fr}}
 @media(max-width:500px){.grid{grid-template-columns:1fr 1fr;gap:9px}.stat{padding:13px}.stat strong{font-size:22px}.barrow{grid-template-columns:90px 1fr 38px;gap:7px}.top h1{font-size:18px}}
+.loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(246,250,247,.78);backdrop-filter:blur(2px)}.spin{width:46px;height:46px;border-radius:50%;border:5px solid #cfe5d8;border-top-color:var(--green);animation:spin .8s linear infinite}.loader p{margin:0;font-weight:650;color:var(--green)}@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
+<div id="loader" class="loader hidden" role="status" aria-live="polite"><div class="spin"></div><p id="loaderMsg">Memproses...</p></div>
 <div id="login" class="loginpage">
  <div class="loginbox">
   <div class="loginbrand"><div class="logo">☪</div><div><h1>Masjid Kletek</h1><p>Absensi & data jamaah masjid</p></div></div>
@@ -95,7 +97,7 @@ let db={jamaah:[],attendance:[],settings:{}},role='jamaah',user=null,page='dashb
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const monthNow=()=>today().slice(0,7);
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]))}
-async function api(action,payload){
+async function apiRaw(action,payload){
  let res,js;
  try{res=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({key:API_KEY,action},payload||{}))})}
  catch(e){throw new Error('Tidak bisa menghubungi server Google Apps Script. Periksa koneksi internet dan pastikan APPS_SCRIPT_URL sudah diisi.')}
@@ -103,6 +105,15 @@ async function api(action,payload){
  catch(e){throw new Error('Respons server tidak valid. Pastikan URL berakhiran /exec dan deployment Apps Script sudah versi terbaru.')}
  if(!js.ok)throw new Error(js.error||'Server menolak permintaan.');
  return js;
+}
+const LOADMSG={login:'Sedang masuk...',getAll:'Memuat data...',addJamaah:'Menyimpan jamaah...',deleteJamaah:'Menghapus jamaah...',markAttendance:'Mencatat absensi...',changeAdminPassword:'Menyimpan kata sandi...',restore:'Memulihkan data...'};
+let loadN=0;
+async function api(action,payload){
+ loadN++;
+ document.getElementById('loaderMsg').textContent=LOADMSG[action]||'Memproses...';
+ document.getElementById('loader').classList.remove('hidden');
+ try{return await apiRaw(action,payload)}
+ finally{loadN--;if(loadN<=0){loadN=0;document.getElementById('loader').classList.add('hidden')}}
 }
 function persistSession(){try{sessionStorage.setItem(SESSKEY,JSON.stringify({user,session,page}))}catch(e){}}
 function clearSession(){try{sessionStorage.removeItem(SESSKEY)}catch(e){}}
