@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MasjidKu — Absensi & Data Jamaah</title>
+<meta name="description" content="Aplikasi absensi & data jamaah Masjid Kletek">
+<meta name="theme-color" content="#0f513a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MasjidKu">
+<style>
+:root{--green:#126b4b;--green2:#19845d;--mint:#e8f5ee;--ink:#172a23;--muted:#6b7d74;--line:#dce8e1;--bg:#f5f8f6;--white:#fff;--red:#b83d3d;--gold:#e8b44d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--green);color:#fff;font-weight:650}button.secondary{background:#edf4ef;color:var(--green);border:1px solid var(--line)}button.danger{background:#fff0f0;color:var(--red);border:1px solid #f0d0d0}button:disabled{opacity:.5;cursor:not-allowed}.shell{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.side{background:#0f513a;color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:22px}.brand{display:flex;align-items:center;gap:11px;padding:2px 8px}.logo{height:42px;width:42px;border-radius:13px;background:#d8f0e1;color:#126b4b;display:grid;place-items:center;font-size:23px}.brand strong{display:block;font-size:17px}.brand small{color:#c1dfcf}.nav{display:grid;gap:7px}.nav button{background:transparent;text-align:left;color:#d3e9dc;font-weight:550}.nav button.active,.nav button:hover{background:#267357;color:#fff}.side-foot{margin-top:auto;color:#c1dfcf;font-size:12px}.main{min-width:0}.top{background:#fff;border-bottom:1px solid var(--line);padding:18px 28px;display:flex;justify-content:space-between;align-items:center;gap:12px}.top h1{font-size:21px;margin:0}.top p{margin:2px 0 0;color:var(--muted);font-size:13px}.content{padding:25px 28px;max-width:1400px;margin:auto}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:18px 0}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 3px 12px #12351c05}.stat small{color:var(--muted)}.stat strong{display:block;font-size:27px;margin:7px 0 2px}.stat .sub{font-size:12px;color:var(--muted)}.panel{margin:15px 0}.panel h2{font-size:16px;margin:0 0 15px}.actions{display:flex;gap:8px;flex-wrap:wrap}.field{display:grid;gap:6px;margin-bottom:12px}.field label{font-size:13px;color:#52665b;font-weight:650}.field input,.field select{width:100%;padding:11px 12px;border:1px solid #cbdcd1;border-radius:10px;background:#fff;color:var(--ink)}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{padding:12px 10px;border-bottom:1px solid #edf2ee;text-align:left;font-size:13px}th{color:var(--muted);font-weight:700;background:#fbfdfb}tbody tr:last-child td{border-bottom:0}.pill{display:inline-block;border-radius:99px;padding:4px 9px;font-size:11px;font-weight:700;background:var(--mint);color:var(--green)}.pill.absent{background:#fff0f0;color:var(--red)}.barrow{display:grid;grid-template-columns:minmax(100px,180px) 1fr 48px;align-items:center;gap:12px;margin:13px 0}.barname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}.track{height:10px;border-radius:99px;background:#edf2ee;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#168257,#72c79a);border-radius:99px}.muted{color:var(--muted)}.notice{padding:12px 14px;background:#fff8e6;border:1px solid #f3e3b6;border-radius:10px;color:#72581a;font-size:13px}.hidden{display:none!important}.loginpage{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 20% 10%,#d6eee0,transparent 36%),var(--bg)}.loginbox{width:min(440px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 18px 60px #14432b12}.loginbrand{display:flex;gap:12px;align-items:center;margin-bottom:24px}.loginbrand h1{margin:0;font-size:22px}.loginbrand p{margin:2px 0;color:var(--muted);font-size:13px}.rolepick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 16px}.rolepick button{background:#f0f6f2;color:var(--green);border:1px solid var(--line)}.rolepick button.selected{background:var(--green);color:white}.loginhint{font-size:12px;color:var(--muted);background:#f6faf7;border-radius:10px;padding:10px;margin-top:14px}.empty{text-align:center;padding:30px;color:var(--muted)}.mobilemenu{display:none}
+.installbar{position:fixed;left:14px;right:14px;bottom:14px;z-index:60;display:none;align-items:center;gap:12px;background:#0f513a;color:#fff;border-radius:16px;padding:12px 12px 12px 14px;box-shadow:0 14px 40px rgba(6,40,27,.4);max-width:560px;margin:auto}
+.installbar.show{display:flex}
+.installbar img{height:42px;width:42px;border-radius:12px;flex:none}
+.installbar .in-t{flex:1;min-width:0}
+.installbar .in-t b{display:block;font-size:13.5px}
+.installbar .in-t small{color:#c1dfcf;font-size:12px;line-height:1.4;display:block}
+.installbar button{flex:none}
+.installbar .in-x{background:transparent!important;color:#c1dfcf;padding:6px 8px;font-size:15px}
+.iosopen{position:fixed;inset:0;z-index:70;display:none;place-items:center;background:rgba(15,37,27,.78);padding:20px}
+.iosopen.show{display:grid}
+.ioscard{background:#fff;border-radius:18px;padding:22px;max-width:340px;width:100%}
+.ioscard h2{margin:0 0 6px;font-size:17px}
+.ioscard p{margin:0;color:var(--muted);font-size:13px}
+.steps{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.steps li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.45}
+.stepnum{flex:none;height:24px;width:24px;border-radius:99px;background:var(--mint);color:#126b4b;display:grid;place-items:center;font-weight:750;font-size:12px}
+@media(max-width:900px){.shell{grid-template-columns:1fr}.side{display:none}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.content{padding:18px}.top{padding:16px 18px}.mobilemenu{display:inline-block}.formgrid{grid-template-columns:1fr}}
+@media(max-width:500px){.grid{grid-template-columns:1fr 1fr;gap:9px}.stat{padding:13px}.stat strong{font-size:22px}.barrow{grid-template-columns:90px 1fr 38px;gap:7px}.top h1{font-size:18px}}
+</style>
+</head>
+<body>
+<div id="login" class="loginpage">
+ <div class="loginbox">
+  <div class="loginbrand"><div class="logo">☪</div><div><h1>Masjid Kletek</h1><p>Absensi & data jamaah masjid</p></div></div>
+  <h2 style="margin:0 0 4px">Selamat datang</h2><p class="muted" style="margin:0 0 16px">Masuk sesuai jenis akun Anda.</p>
+  <div class="rolepick"><button id="roleJ" class="selected" onclick="pickRole('jamaah')">Akun Jamaah</button><button id="roleA" onclick="pickRole('admin')">Admin / Pengurus</button></div>
+  <form id="loginForm">
+   <div class="field"><label>Username / ID Jamaah</label><input id="username" autocomplete="username" placeholder="Contoh: JMH001 atau admin" required></div>
+   <div class="field"><label>Kata sandi / PIN</label><input id="password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required></div>
+   <button style="width:100%;margin-top:5px" type="submit">Masuk</button>
+  </form>
+  <div class="loginhint"><b>Akun demo awal</b><br>Admin: <b>admin</b> / <b>masjid123</b><br>Jamaah contoh: <b>JMH001</b> / <b>1234</b><br><span style="color:#9b4b35">Ganti kredensial demo sebelum dipakai sungguhan.</span></div>
+ </div>
+</div>
+<div id="app" class="shell hidden">
+ <aside class="side">
+  <div class="brand"><div class="logo">☪</div><div><strong>Masjid Kletek</strong><small>Manajemen jamaah</small></div></div>
+  <nav class="nav" id="nav"></nav>
+  <div class="side-foot">Data tersimpan di Google Spreadsheet.<br>Ganti perangkat? Cukup login ulang.</div>
+ </aside>
+ <main class="main">
+  <header class="top"><div><h1 id="pageTitle">Dashboard</h1><p id="pageSub">Ringkasan kehadiran jamaah</p></div><div class="actions"><button class="secondary mobilemenu" onclick="toggleNav()">☰ Menu</button><button class="secondary" onclick="refreshData()">⟳ Muat ulang</button><button class="secondary" onclick="logout()">Keluar</button></div></header>
+  <div class="content" id="view"></div>
+ </main>
+</div>
+<div id="installBar" class="installbar">
+ <img src="icons/icon-192.png" alt="MasjidKu">
+ <div class="in-t"><b>Pasang aplikasi MasjidKu</b><small id="installSub">Lebih cepat, ikon seperti aplikasi sungguhan di layar ponsel Anda.</small></div>
+ <button id="installYes">Pasang</button>
+ <button class="in-x" onclick="hideInstallBar()" title="Tutup">✕</button>
+</div>
+<div id="iosGuide" class="iosopen">
+ <div class="ioscard">
+  <h2>Pasang ke layar beranda</h2>
+  <p>Jika tombol pasang tidak muncul otomatis:</p>
+  <ol class="steps">
+   <li><span class="stepnum">1</span><span>Di browser, ketuk ikon <b>Berbagi</b> (kotak dengan panah ke atas) atau menu <b>⋮</b> di pojok.</span></li>
+   <li><span class="stepnum">2</span><span>Pilih <b>"Tambah ke layar utama"</b> / <b>"Tambahkan ke layar utama"</b>.</span></li>
+   <li><span class="stepnum">3</span><span>Ketuk <b>Tambah</b>. Ikon aplikasi akan muncul di layar beranda.</span></li>
+  </ol>
+  <button style="width:100%;margin-top:16px" onclick="hideIosGuide()">Mengerti</button>
+ </div>
+</div>
+<script>
+/* ==================== KONFIGURASI (WAJIB DIISI) ====================
+   1. APPS_SCRIPT_URL : URL Web-app Google Apps Script, diakhiri /exec
+        (didapat dari langkah Deploy > New deployment > Web app)
+   2. API_KEY : teks rahasia bebas, HARUS SAMA dengan API_KEY pada
+        file Apps Script (apps-script-database.gs)
+   Panduan lengkap: lihat PANDUAN-SPREADSHEET.md
+==================================================================== */
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwY8dHv2YnNQ8OPiCwrGnqkEma__Qdj2V_EBC0tvKSewj2m_FBmtwmDvy1It4EW9BEd/exec';
+const API_KEY='b46df014b82b66aa46b1abb53cf7a7cb303b0fa7fe81f51895652d1cf519e6c0;
+/* ========================= BATAS KONFIG =========================== */
+
+const SESSKEY='masjidku_session_v1';
+let db={jamaah:[],attendance:[],settings:{}},role='jamaah',user=null,page='dashboard',session=null;
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const monthNow=()=>today().slice(0,7);
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]))}
+async function api(action,payload){
+ let res,js;
+ try{res=await fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({key:API_KEY,action},payload||{}))})}
+ catch(e){throw new Error('Tidak bisa menghubungi server Google Apps Script. Periksa koneksi internet dan pastikan APPS_SCRIPT_URL sudah diisi.')}
+ try{js=await res.json()}
+ catch(e){throw new Error('Respons server tidak valid. Pastikan URL berakhiran /exec dan deployment Apps Script sudah versi terbaru.')}
+ if(!js.ok)throw new Error(js.error||'Server menolak permintaan.');
+ return js;
+}
+function persistSession(){try{sessionStorage.setItem(SESSKEY,JSON.stringify({user,session,page}))}catch(e){}}
+function clearSession(){try{sessionStorage.removeItem(SESSKEY)}catch(e){}}
+function openApp(){document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden')}
+async function tryAutoLogin(){
+ let s;try{s=JSON.parse(sessionStorage.getItem(SESSKEY))}catch(e){return}
+ if(!s||!s.session||!s.user)return;
+ try{const res=await api('getAll',{auth:s.session});user=s.user;session=s.session;db=res.data;page=s.page||(user.type==='admin'?'dashboard':'absen');openApp();render()}
+ catch(e){clearSession()}
+}
+tryAutoLogin();
+function pickRole(r){role=r;document.getElementById('roleJ').classList.toggle('selected',r==='jamaah');document.getElementById('roleA').classList.toggle('selected',r==='admin');document.getElementById('username').placeholder=r==='admin'?'admin':'Contoh: JMH001';}
+document.getElementById('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ let u=document.getElementById('username').value.trim(),p=document.getElementById('password').value;
+ let btn=e.target.querySelector('button[type=submit]');btn.disabled=true;
+ try{
+  const res=await api('login',{mode:role,id:u,password:p});
+  user=res.user;session=res.session;db=res.data;
+  openApp();page=user.type==='admin'?'dashboard':'absen';persistSession();render();
+ }catch(err){alert(err.message||'Gagal masuk.')}
+ finally{btn.disabled=false}
+});
+function logout(){user=null;session=null;db={jamaah:[],attendance:[],settings:{}};clearSession();document.getElementById('app').classList.add('hidden');document.getElementById('login').classList.remove('hidden');document.getElementById('password').value=''}
+async function refreshData(){try{const res=await api('getAll',{auth:session});db=res.data;render();alert('Data diperbarui dari spreadsheet.')}catch(e){alert(e.message||'Gagal memuat data.')}}
+function navItems(){return user.type==='admin'?[['dashboard','▦','Dashboard'],['jamaah','♙','Data Jamaah'],['absensi','✓','Data Absensi'],['rekap','▤','Rekapan Bulanan'],['pengaturan','⚙','Pengaturan']]:[['absen','✓','Absen Kehadiran'],['profil','♙','Profil Saya']]}
+function renderNav(){document.getElementById('nav').innerHTML=navItems().map(([id,ic,t])=>`<button class="${page===id?'active':''}" onclick="go('${id}')">${ic} &nbsp; ${t}</button>`).join('')}
+function go(p){page=p;persistSession();render()}
+function toggleNav(){let n=document.getElementById('nav');n.style.display=n.style.display==='grid'?'none':'grid'}
+function recordsForMonth(m){return db.attendance.filter(a=>a.date.startsWith(m))}
+function pctFor(j,m){let records=recordsForMonth(m), days=new Set(records.map(a=>a.date)).size, present=new Set(records.filter(a=>a.jamaahId===j.id).map(a=>a.date)).size;return days?Math.round(present/days*100):0}
+function presentToday(){return db.attendance.filter(a=>a.date===today())}
+function render(){renderNav();let titles={dashboard:['Dashboard','Ringkasan kehadiran jamaah'],jamaah:['Data Jamaah','Pendaftaran dan identitas jamaah'],absensi:['Data Absensi','Riwayat pencatatan kehadiran'],rekap:['Rekapan Bulanan','Persentase dan laporan per bulan'],pengaturan:['Pengaturan','Akun admin dan cadangan data'],absen:['Absen Kehadiran','Catat kehadiran menggunakan ID jamaah'],profil:['Profil Saya','Informasi akun jamaah']};document.getElementById('pageTitle').textContent=titles[page]?.[0]||'MasjidKu';document.getElementById('pageSub').textContent=titles[page]?.[1]||'';let v=document.getElementById('view');
+ if(page==='dashboard')v.innerHTML=dashboard();
+ if(page==='jamaah')v.innerHTML=jamaahPage();
+ if(page==='absensi')v.innerHTML=absensiPage();
+ if(page==='rekap')v.innerHTML=rekapPage();
+ if(page==='pengaturan')v.innerHTML=settingsPage();
+ if(page==='absen')v.innerHTML=absenPage();
+ if(page==='profil')v.innerHTML=profilPage();
+}
+function dashboard(){let t=presentToday(),month=recordsForMonth(monthNow());let avg=db.jamaah.length?Math.round(db.jamaah.reduce((s,j)=>s+pctFor(j,monthNow()),0)/db.jamaah.length):0;return `
+<div class="row"><div><h2 style="margin:0">Assalamu'alaikum, ${esc(user.name)}</h2><p class="muted" style="margin:4px 0">Berikut ringkasan aktivitas masjid.</p></div><span class="pill">${today()}</span></div>
+<div class="grid"><div class="stat"><small>Total jamaah terdaftar</small><strong>${db.jamaah.length}</strong><span class="sub">Identitas aktif</span></div><div class="stat"><small>Hadir hari ini</small><strong>${new Set(t.map(a=>a.jamaahId)).size}</strong><span class="sub">Jamaah unik</span></div><div class="stat"><small>Catatan bulan ini</small><strong>${month.length}</strong><span class="sub">Absensi tercatat</span></div><div class="stat"><small>Rata-rata kehadiran</small><strong>${avg}%</strong><span class="sub">Bulan berjalan</span></div></div>
+<div class="panel"><div class="row"><h2>Persentase kehadiran per jamaah · ${monthNow()}</h2><button class="secondary" onclick="go('rekap')">Lihat rekapan</button></div>${db.jamaah.length?db.jamaah.map(j=>`<div class="barrow"><div class="barname" title="${esc(j.name)}">${esc(j.name)}</div><div class="track"><div class="fill" style="width:${pctFor(j,monthNow())}%"></div></div><b>${pctFor(j,monthNow())}%</b></div>`).join(''):'<div class="empty">Belum ada jamaah terdaftar.</div>'}</div>
+<div class="panel"><h2>Absensi hari ini</h2>${t.length?`<div class="tablewrap"><table><thead><tr><th>Jamaah</th><th>Waktu</th><th>Status</th></tr></thead><tbody>${t.map(a=>`<tr><td>${esc(nameOf(a.jamaahId))}</td><td>${esc(a.time)}</td><td><span class="pill">Hadir</span></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Belum ada absensi hari ini.</div>'}</div>`}
+function nameOf(id){return db.jamaah.find(j=>j.id===id)?.name||id}
+function jamaahPage(){return `<div class="panel"><h2>Daftarkan jamaah baru</h2><form onsubmit="addJamaah(event)"><div class="formgrid"><div class="field"><label>Nama lengkap *</label><input id="jname" required maxlength="80" placeholder="Nama jamaah"></div><div class="field"><label>ID jamaah *</label><input id="jid" required pattern="[A-Za-z0-9_-]{3,20}" placeholder="Contoh: JMH004"></div><div class="field"><label>PIN login (4–8 digit) *</label><input id="jpin" required pattern="[0-9]{4,8}" inputmode="numeric" placeholder="Minimal 4 digit"></div><div class="field"><label>Nomor telepon (opsional)</label><input id="jphone" placeholder="08xx..."></div><div class="field"><label>Alamat (opsional)</label><input id="jaddress" placeholder="Alamat jamaah"></div></div><button type="submit">+ Simpan jamaah</button></form></div>
+<div class="panel"><div class="row"><h2>Daftar jamaah (${db.jamaah.length})</h2><button class="secondary" onclick="exportCSV('jamaah')">Ekspor CSV</button></div><div class="tablewrap"><table><thead><tr><th>ID</th><th>Nama</th><th>Telepon</th><th>Tanggal daftar</th><th>Aksi</th></tr></thead><tbody>${db.jamaah.map(j=>`<tr><td><b>${esc(j.id)}</b></td><td>${esc(j.name)}</td><td>${esc(j.phone||'-')}</td><td>${esc(j.joined||'-')}</td><td><button class="danger" onclick="deleteJamaah('${esc(j.id)}')">Hapus</button></td></tr>`).join('')||'<tr><td colspan="5">Belum ada data jamaah.</td></tr>'}</tbody></table></div></div>`}
+async function addJamaah(e){
+ e.preventDefault();
+ let id=document.getElementById('jid').value.trim().toUpperCase();
+ if(db.jamaah.some(j=>j.id.toLowerCase()===id.toLowerCase())){alert('ID sudah digunakan.');return}
+ let btn=e.target.querySelector('button[type=submit]');btn.disabled=true;
+ try{const res=await api('addJamaah',{auth:session,jamaah:{id,name:document.getElementById('jname').value.trim(),pin:document.getElementById('jpin').value.trim(),phone:document.getElementById('jphone').value.trim(),address:document.getElementById('jaddress').value.trim()}});db=res.data;render();alert('Jamaah berhasil didaftarkan.')}
+ catch(err){alert(err.message||'Gagal menyimpan jamaah.')}
+ finally{btn.disabled=false}
+}
+async function deleteJamaah(id){
+ if(!confirm('Hapus jamaah '+id+'? Riwayat absensinya juga akan dihapus.'))return;
+ try{const res=await api('deleteJamaah',{auth:session,id});db=res.data;render()}
+ catch(e){alert(e.message||'Gagal menghapus jamaah.')}
+}
+function absenPage(){let j=db.jamaah.find(x=>x.id===user.id),already=db.attendance.some(a=>a.jamaahId===user.id&&a.date===today());return `<div class="panel"><h2>Assalamu'alaikum, ${esc(j?.name||user.name)}</h2><p class="muted">ID Jamaah: <b>${esc(user.id)}</b> · Tanggal: <b>${today()}</b></p>${already?'<div class="notice">Absensi Anda hari ini sudah tercatat. Barakallah.</div>':`<p>Tekan tombol di bawah untuk mencatat kehadiran hari ini.</p><button onclick="markAttendance('${esc(user.id)}')">✓ Saya Hadir Hari Ini</button>`}<p class="muted" style="font-size:12px;margin-top:14px">Absensi dibatasi satu kali per jamaah per hari. Pastikan Anda berada di lingkungan masjid saat melakukan absensi.</p></div><div class="panel"><h2>Ringkasan kehadiran bulan ini</h2><div class="grid"><div class="stat"><small>Persentase hadir</small><strong>${pctFor(j||{id:user.id},monthNow())}%</strong></div><div class="stat"><small>Catatan bulan ini</small><strong>${recordsForMonth(monthNow()).filter(a=>a.jamaahId===user.id).length}</strong></div></div><div class="barrow"><div class="barname">Kehadiran ${monthNow()}</div><div class="track"><div class="fill" style="width:${pctFor(j||{id:user.id},monthNow())}%"></div></div><b>${pctFor(j||{id:user.id},monthNow())}%</b></div></div><div class="panel"><h2>Riwayat absensi terbaru</h2>${db.attendance.filter(a=>a.jamaahId===user.id).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time)).slice(0,10).map(a=>`<div class="row" style="padding:10px 0;border-bottom:1px solid #edf2ee"><span>${esc(a.date)}</span><span class="pill">Hadir · ${esc(a.time)}</span></div>`).join('')||'<div class="empty">Belum ada riwayat kehadiran.</div>'}</div>`}
+let busyAbsen=false;
+async function markAttendance(id){
+ if(busyAbsen)return;
+ if(db.attendance.some(a=>a.jamaahId===id&&a.date===today())){alert('Absensi hari ini sudah tercatat.');return}
+ busyAbsen=true;
+ try{const res=await api('markAttendance',{auth:session,jamaahId:id,date:today()});db=res.data;render();alert(res.status==='sudah'?'Absensi Anda untuk hari ini sudah tercatat sebelumnya.':'Absensi berhasil dicatat.')}
+ catch(e){alert(e.message||'Gagal mencatat absensi.')}
+ finally{busyAbsen=false}
+}
+function absensiPage(){return `<div class="panel"><div class="row"><h2>Riwayat absensi</h2><div class="actions"><input id="filterDate" type="date" value="${today()}" onchange="renderAbsensiFilter()" style="padding:9px;border:1px solid var(--line);border-radius:9px"><button class="secondary" onclick="exportCSV('absensi')">Ekspor CSV</button></div></div><div id="attendanceTable">${attendanceTable(today())}</div></div>`}
+function attendanceTable(date){let arr=db.attendance.filter(a=>!date||a.date===date).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));return arr.length?`<div class="tablewrap"><table><thead><tr><th>Tanggal</th><th>Waktu</th><th>ID</th><th>Nama jamaah</th><th>Metode</th></tr></thead><tbody>${arr.map(a=>`<tr><td>${esc(a.date)}</td><td>${esc(a.time)}</td><td>${esc(a.jamaahId)}</td><td>${esc(nameOf(a.jamaahId))}</td><td><span class="pill">${esc(a.method||'ID/PIN')}</span></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Tidak ada absensi pada tanggal ini.</div>'}
+function renderAbsensiFilter(){document.getElementById('attendanceTable').innerHTML=attendanceTable(document.getElementById('filterDate').value)}
+function rekapPage(){return `<div class="panel"><div class="row"><div><h2>Rekapan kehadiran bulanan</h2><p class="muted" style="margin-top:-8px">Pilih bulan untuk melihat total dan persentase.</p></div><input id="monthFilter" type="month" value="${monthNow()}" onchange="renderRekap()" style="padding:10px;border:1px solid var(--line);border-radius:9px"></div><div id="rekapBody">${rekapBody(monthNow())}</div></div>`}
+function rekapBody(m){let rec=recordsForMonth(m),days=new Set(rec.map(a=>a.date)).size,total=db.jamaah.length,avg=total?Math.round(db.jamaah.reduce((s,j)=>s+pctFor(j,m),0)/total):0;return `<div class="grid"><div class="stat"><small>Jamaah terdaftar</small><strong>${total}</strong></div><div class="stat"><small>Hari dengan absensi</small><strong>${days}</strong></div><div class="stat"><small>Total catatan hadir</small><strong>${rec.length}</strong></div><div class="stat"><small>Rata-rata persentase</small><strong>${avg}%</strong></div></div><div class="tablewrap"><table><thead><tr><th>ID</th><th>Nama jamaah</th><th>Total hadir</th><th>Hari tercatat</th><th>Persentase</th><th>Visual</th></tr></thead><tbody>${db.jamaah.map(j=>{let n=new Set(rec.filter(a=>a.jamaahId===j.id).map(a=>a.date)).size,p=days?Math.round(n/days*100):0;return `<tr><td>${esc(j.id)}</td><td>${esc(j.name)}</td><td>${n}</td><td>${days}</td><td><b>${p}%</b></td><td style="min-width:120px"><div class="track"><div class="fill" style="width:${p}%"></div></div></td></tr>`}).join('')||'<tr><td colspan="6">Belum ada jamaah.</td></tr>'}</tbody></table></div><div class="row" style="margin-top:16px"><span class="muted" style="font-size:12px">Persentase = hari hadir unik ÷ hari yang memiliki catatan absensi × 100. Ini bukan otomatis jumlah seluruh jadwal salat.</span><button onclick="exportMonth('${m}')">Unduh rekap CSV</button></div>`}
+function renderRekap(){document.getElementById('rekapBody').innerHTML=rekapBody(document.getElementById('monthFilter').value)}
+function settingsPage(){return `<div class="panel"><h2>Ubah kata sandi admin</h2><form onsubmit="changeAdminPassword(event)"><div class="field"><label>Kata sandi admin baru (minimal 8 karakter)</label><input id="newAdminPass" type="password" minlength="8" required></div><button>Simpan kata sandi</button></form></div><div class="panel"><h2>Cadangan dan pemulihan data</h2><p class="muted">Ekspor file JSON untuk menyimpan data jamaah dan absensi. Simpan di lokasi aman. Impor akan mengganti data di spreadsheet (kata sandi admin tidak ikut ditimpa).</p><div class="actions"><button onclick="backup()">Unduh cadangan JSON</button><label class="secondary" style="padding:10px 14px;border-radius:10px;cursor:pointer">Impor cadangan JSON<input type="file" accept="application/json" onchange="restore(event)" hidden></label></div></div><div class="notice">Catatan keamanan: data tersimpan di Google Spreadsheet sehingga lintas perangkat. Kunci API berada di kode klien (bisa dilihat pengguna halaman), tetapi aksi admin tetap wajib verifikasi kata sandi admin. Jangan gunakan untuk data yang sangat sensitif, dan ganti kata sandi admin secara berkala.</div>`}
+async function changeAdminPassword(e){
+ e.preventDefault();
+ let np=document.getElementById('newAdminPass').value;
+ let btn=e.target.querySelector('button');btn.disabled=true;
+ try{const res=await api('changeAdminPassword',{auth:session,newPassword:np});session.password=np;db=res.data;persistSession();render();alert('Kata sandi admin diperbarui.')}
+ catch(err){alert(err.message||'Gagal mengubah kata sandi.')}
+ finally{btn.disabled=false}
+}
+function backup(){download('cadangan-masjidku-'+today()+'.json',JSON.stringify(db,null,2),'application/json')}
+function restore(e){
+ let f=e.target.files[0];if(!f)return;
+ let r=new FileReader();
+ r.onload=async()=>{
+  let d;
+  try{d=JSON.parse(r.result)}catch(_){alert('File cadangan tidak valid.');return}
+  if(!Array.isArray(d.jamaah)||!Array.isArray(d.attendance)||!d.settings||typeof d.settings!=='object'){alert('File cadangan tidak valid.');return}
+  if(!confirm('Impor akan MENGGANTI seluruh data jamaah dan absensi di spreadsheet. Lanjutkan?'))return;
+  try{const res=await api('restore',{auth:session,data:d});db=res.data;render();alert('Cadangan berhasil diimpor.')}
+  catch(err){alert(err.message||'Impor gagal.')}
+ };
+ r.readAsText(f);
+}
+function exportCSV(kind){let rows;if(kind==='jamaah')rows=[['ID','Nama','Telepon','Alamat','Tanggal daftar'],...db.jamaah.map(j=>[j.id,j.name,j.phone,j.address,j.joined])];else rows=[['Tanggal','Waktu','ID Jamaah','Nama','Metode'],...db.attendance.map(a=>[a.date,a.time,a.jamaahId,nameOf(a.jamaahId),a.method||'ID/PIN'])];download(kind+'-'+today()+'.csv',rows.map(r=>r.map(csvCell).join(',')).join('\r\n'),'text/csv;charset=utf-8')}
+function exportMonth(m){let rows=[['Bulan','ID','Nama','Total hadir','Hari tercatat','Persentase']];let rec=recordsForMonth(m),days=new Set(rec.map(a=>a.date)).size;db.jamaah.forEach(j=>{let n=new Set(rec.filter(a=>a.jamaahId===j.id).map(a=>a.date)).size;rows.push([m,j.id,j.name,n,days,(days?Math.round(n/days*100):0)+'%'])});download('rekap-masjidku-'+m+'.csv',rows.map(r=>r.map(csvCell).join(',')).join('\r\n'),'text/csv;charset=utf-8')}
+function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
+function download(name,data,type){let blob=new Blob(['\ufeff',data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+function profilPage(){let j=db.jamaah.find(x=>x.id===user.id);return `<div class="panel"><h2>Profil jamaah</h2><div class="formgrid"><div><small class="muted">Nama lengkap</small><p><b>${esc(j?.name)}</b></p></div><div><small class="muted">ID Jamaah</small><p><b>${esc(j?.id)}</b></p></div><div><small class="muted">Nomor telepon</small><p>${esc(j?.phone||'-')}</p></div><div><small class="muted">Tanggal terdaftar</small><p>${esc(j?.joined||'-')}</p></div></div><p class="muted">Untuk koreksi data, hubungi admin/pengurus masjid.</p></div>`}
+/* ==================== PWA: INSTALL STICKY & SERVICE WORKER ==================== */
+let deferredPrompt=null,installedPwa=false;
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function isStandalone(){return window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}
+function showInstallBar(){document.getElementById('installBar').classList.add('show')}
+function hideInstallBar(){document.getElementById('installBar').classList.remove('show')}
+function showIosGuide(){document.getElementById('iosGuide').classList.add('show')}
+function hideIosGuide(){document.getElementById('iosGuide').classList.remove('show')}
+async function doInstallPrompt(){
+ if(!deferredPrompt){showIosGuide();return}
+ try{deferredPrompt.prompt();const c=await deferredPrompt.userChoice;if(c&&c.outcome==='accepted')installedPwa=true}catch(e){}
+ deferredPrompt=null;refreshInstallBar();
+}
+function refreshInstallBar(){
+ if(installedPwa||isStandalone()){hideInstallBar();return}
+ const yes=document.getElementById('installYes'),sub=document.getElementById('installSub');
+ if(isIOS&&!deferredPrompt){
+  sub.textContent='Di iPhone/iPad: ketuk Berbagi (kotak panah ke atas), lalu "Tambah ke layar utama".';
+  yes.textContent=' Tutorial';yes.onclick=showIosGuide;
+ }else{
+  sub.textContent=deferredPrompt?'Sekali ketuk untuk memasang ikon di layar Anda.':'Jika tombol tidak bereaksi ketika diklik: gunakan menu Berbagi/⋮ → "Tambah ke layar utama".';
+  yes.textContent='Pasang';yes.onclick=doInstallPrompt;
+ }
+ showInstallBar();
+}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;refreshInstallBar()});
+window.addEventListener('appinstalled',()=>{installedPwa=true;deferredPrompt=null;hideInstallBar()});
+try{
+ const mq=window.matchMedia('(display-mode: standalone)');
+ mq.addEventListener&&mq.addEventListener('change',m=>{if(m.matches){installedPwa=true;refreshInstallBar()}});
+}catch(e){}
+window.addEventListener('load',()=>{
+ try{('serviceWorker' in navigator)&&navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}
+ refreshInstallBar();
+});
+</script>
+</body></html>
